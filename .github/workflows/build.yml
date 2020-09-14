@@ -16,7 +16,7 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           ./windows.ps1
-          7z a ManimTex.zip "$($PWD)ManimTex"
+          7z a ManimTex.zip "$($PWD)\ManimTex"
       - name: Download Texline for Linux
         if: runner.os != 'Windows'
         run: |
