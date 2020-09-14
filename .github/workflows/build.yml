@@ -8,12 +8,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         
-      - name: Run a one-line script
+      - name: Collect Texlive
         run: ./windows.ps1
         
-      - name: Run a multi-line script
+      - name: Install Manim And Test
         run: |
-          choco install manim
+          dir ManimTex
+          choco install --no-progress manim
+          Start-Process -ArgumentList "path add" -FilePath "$($PWD)\ManimTex\bin\win32\tlmgr.bat" -NoNewWindow -Wait
           curl -L https://pastebin.com/raw/QcbYFiTz -o tex.py
           manim tex.py
       - uses: actions/upload-artifact@v2
