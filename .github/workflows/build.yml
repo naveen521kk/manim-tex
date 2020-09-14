@@ -13,8 +13,9 @@ jobs:
         
       - name: Install Manim And Test
         run: |
-          dir ManimTex
+          Get-ChildItem "$PWD\ManimTex" | Measure-Object -Property Length -sum
           choco install --no-progress manim
+          $env:Path += ";" + "$($PWD)\ManimTex\bin\win32"
           Start-Process -ArgumentList "path add" -FilePath "$($PWD)\ManimTex\bin\win32\tlmgr.bat" -NoNewWindow -Wait
           curl -L https://pastebin.com/raw/QcbYFiTz -o tex.py
           manim tex.py
