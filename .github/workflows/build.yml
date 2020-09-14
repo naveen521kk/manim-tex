@@ -4,14 +4,23 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
     steps:
       - uses: actions/checkout@v2
         
-      - name: Collect Texlive
+      - name: Download Texlive for Windows
+        if: runner.os == 'Windows'
         run: ./windows.ps1
-        
+      - name: Download Texline for Linux
+        if: runner.os != 'Windows'
+        run: |
+          sh linux.sh
       - name: Install Manim And Test
+        if: runner.os == 'Windows'
         run: |
           Get-ChildItem "$PWD\ManimTex" | Measure-Object -Property Length -sum
           choco install --no-progress manim
@@ -20,6 +29,7 @@ jobs:
           curl -L https://pastebin.com/raw/QcbYFiTz -o tex.py
           manim tex.py
       - uses: actions/upload-artifact@v2
+        if: runner.os == 'Windows'
         with:
          name: ManimTex
          path: ManimTex
