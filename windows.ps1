@@ -18,7 +18,7 @@ Remove-Item "$toolsDir\install-tl.zip"
 #download tinytex.profile and modify it (set texdir to ./TinyTeX)
 Copy-Item -Path "$PWD\manimtex.profile" -Destination "$toolsDir\manimtex\manimtex.profile"
 
-(gc "$toolsDir\manimtex\manimtex.profile") -replace '\./', './ManimTex/' | Out-File -encoding ASCII ""$toolsDir\manimtex\manimtex.profile"
+(gc "$toolsDir\manimtex\manimtex.profile") -replace '\./', './ManimTex/' | Out-File -encoding ASCII "$toolsDir\manimtex\manimtex.profile"
 
 Add-Content -Path "$toolsDir\manimtex\manimtex.profile" -Value 'TEXMFCONFIG $TEXMFSYSCONFIG'
 Add-Content -Path "$toolsDir\manimtex\manimtex.profile" -Value 'TEXMFHOME $TEXMFLOCAL'
