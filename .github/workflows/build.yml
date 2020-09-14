@@ -19,6 +19,7 @@ jobs:
         if: runner.os != 'Windows'
         run: |
           sh linux.sh
+          ls
       - name: Install Manim And Test
         if: runner.os == 'Windows'
         run: |
