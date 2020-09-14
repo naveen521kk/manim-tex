@@ -19,8 +19,14 @@ jobs:
         if: runner.os != 'Windows'
         run: |
           sh linux.sh
+      - name: Pack Tex Mac
+        if: runner.os == 'macos'
+        run: |
+          tar zcf TinyTeX.tar.gz -C ~/Library TinyTeX
+      - name: Pack Tex Linux
+        run: |
           tar zcf TinyTeX.tar.gz -C ~ .TinyTeX
-      - name: Install Manim And Test
+      - name: Install Manim And Test on Windows
         if: runner.os == 'Windows'
         run: |
           Get-ChildItem "$PWD\ManimTex" | Measure-Object -Property Length -sum
