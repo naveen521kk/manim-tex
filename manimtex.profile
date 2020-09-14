@@ -1,4 +1,4 @@
-selected_scheme scheme-minimal
+selected_scheme scheme-infraonly
 TEXDIR ./
 
 TEXMFSYSCONFIG ./texmf-config
