@@ -1,0 +1,26 @@
+name: CI
+on:
+  push:  
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+        
+      - name: Run a one-line script
+        run: ./windows.ps1
+        
+      - name: Run a multi-line script
+        run: |
+          choco install manim
+          curl -L https://pastebin.com/raw/QcbYFiTz -o tex.py
+          manim tex.py
+      - uses: actions/upload-artifact@v2
+        with:
+         name: my-artifact
+         path: ManimTex
+      - uses: actions/upload-artifact@v2
+        with:
+         name: my-artifact
+         path: media
