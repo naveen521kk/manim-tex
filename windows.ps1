@@ -7,7 +7,7 @@ $profileUrl = "https://yihui.org/gh/tinytex/tools/tinytex.profile"
 $pkgcustom = "https://yihui.org/gh/tinytex/tools/pkgs-custom.txt"
 $luatexmirror = "http://mirror.ctan.org/tex-archive/systems/texlive/tlnet/archive/luatex.win32.tar.xz"
 
-Invoke-WebRequest -Url $texliveInstall -OutFile "$toolsDir\install-tl.zip"
+Invoke-WebRequest -Uri $texliveInstall -OutFile "$toolsDir\install-tl.zip"
 
 7z x "$toolsDir\install-tl.zip" -o"$toolsDir\manimtex"
 
