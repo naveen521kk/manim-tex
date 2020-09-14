@@ -24,10 +24,9 @@ Add-Content -Path "$toolsDir\manimtex\manimtex.profile" -Value 'TEXMFHOME $TEXMF
 Add-Content -Path "$toolsDir\manimtex\manimtex.profile" -Value 'TEXMFVAR $TEXMFSYSVAR'
 
 #download the custom package list TODO:Here
-Get-WebFile `
--FileName "$toolsDir\\tinytex\\pkgs-custom.txt" `
--Url $pkgcustom
-foreach ($c in (gc "$toolsDir\\tinytex\\pkgs-custom.txt").split()){
+
+Copy-Item -Path "$PWD\pkgs-manim.txt -Destination "$toolsDir\manimtex\pkgs-manim.txt"
+foreach ($c in (gc "$toolsDir\manimtex\pkgs-manim.txt").split()){
     $pkgs="$pkgs $c"
 }
 
