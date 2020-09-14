@@ -26,10 +26,12 @@ Add-Content -Path "$toolsDir\manimtex\manimtex.profile" -Value 'TEXMFVAR $TEXMFS
 
 #download the custom package list TODO:Here
 
-Copy-Item -Path "$PWD\pkgs-manim.txt -Destination "$toolsDir\manimtex\pkgs-manim.txt"
+Copy-Item -Path "$PWD\pkgs-manim.txt" -Destination "$toolsDir\manimtex\pkgs-manim.txt"
+
 foreach ($c in (gc "$toolsDir\manimtex\pkgs-manim.txt").split()){
     $pkgs="$pkgs $c"
 }
+
 
 #an automated installation of TeXLive (infrastructure only)
 cd "$($toolsDir)\tinytex"
