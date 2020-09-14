@@ -3,9 +3,7 @@ $ErrorActionPreference = 'stop'; # stop on all errors
 $toolsDirActual  = "$($PWD)"
 $toolsDir = "$($env:TMP)\Texlive"
 $texliveInstall = "http://mirrors.ctan.org/systems/texlive/tlnet/install-tl.zip"
-$profileUrl = "https://yihui.org/gh/tinytex/tools/tinytex.profile"
-$pkgcustom = "https://yihui.org/gh/tinytex/tools/pkgs-custom.txt"
-$luatexmirror = "http://mirror.ctan.org/tex-archive/systems/texlive/tlnet/archive/luatex.win32.tar.xz"
+
 
 mkdir "$toolsDir\manimtex"
 Invoke-WebRequest -Uri $texliveInstall -OutFile "$toolsDir\install-tl.zip"
@@ -34,7 +32,7 @@ foreach ($c in (gc "$toolsDir\manimtex\pkgs-manim.txt").split()){
 
 
 #an automated installation of TeXLive (infrastructure only)
-cd "$($toolsDir)\tinytex"
+cd "$($toolsDir)\manimtex"
 cd "install-tl-*"
 
 Start-Process -FilePath "$($PWD)\install-tl-windows.bat" -ArgumentList "-no-gui -profile=`"$($toolsDir)\manimtex\manimtex.profile`"" -WorkingDirectory "$($PWD)" -NoNewWindow -Wait
