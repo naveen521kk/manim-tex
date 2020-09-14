@@ -14,7 +14,9 @@ jobs:
         
       - name: Download Texlive for Windows
         if: runner.os == 'Windows'
-        run: ./windows.ps1
+        run: |
+          ./windows.ps1
+          7a a ManimTex.zip "$($PWD)ManimTex"
       - name: Download Texline for Linux
         if: runner.os != 'Windows'
         run: |
@@ -22,11 +24,11 @@ jobs:
       - name: Pack Tex Mac
         if: runner.os == 'macos'
         run: |
-          tar zcf TinyTeX.tar.gz -C ~/Library TinyTeX
+          tar zcf ManimTex.tar.gz -C ~/Library TinyTeX
       - name: Pack Tex Linux
         if: runner.os == 'linux'
         run: |
-          tar zcf TinyTeX.tar.gz -C ~ .TinyTeX
+          tar zcf ManimTex.tar.gz -C ~ .TinyTeX
       - name: Install Manim And Test on Windows
         if: runner.os == 'Windows'
         run: |
@@ -40,12 +42,12 @@ jobs:
         if: runner.os == 'Windows'
         with:
          name: ManimTex
-         path: ManimTex
+         path: ManimTex.zip
       - uses: actions/upload-artifact@v2
         if: runner.os != 'Windows'
         with:
          name: ManimTex.${{ matrix.os }}.tar.gz
-         path: TinyTeX.tar.gz
+         path: ManimTex.tar.gz
       - uses: actions/upload-artifact@v2
         with:
          name: manimtest
