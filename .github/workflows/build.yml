@@ -24,6 +24,7 @@ jobs:
         run: |
           tar zcf TinyTeX.tar.gz -C ~/Library TinyTeX
       - name: Pack Tex Linux
+        if: runner.os == 'linux'
         run: |
           tar zcf TinyTeX.tar.gz -C ~ .TinyTeX
       - name: Install Manim And Test on Windows
