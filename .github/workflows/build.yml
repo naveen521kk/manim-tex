@@ -1,6 +1,6 @@
 name: CI
 on:
-  push:  
+  push:
 
 jobs:
   build:
@@ -63,14 +63,46 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: runner.os == 'Windows'
         with:
-         name: ManimTex
+         name: ManimTex-${{ matrix.os }}.zip
          path: ManimTex.zip
       - uses: actions/upload-artifact@v2
         if: runner.os != 'Windows'
         with:
-         name: ManimTex.${{ matrix.os }}.tar.gz
+         name: ManimTex-${{ matrix.os }}.tar.gz
          path: ManimTex.tar.gz
       - uses: actions/upload-artifact@v2
         with:
          name: manimtest
          path: media
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: true
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset-non-windows
+        uses: actions/upload-release-asset@v1
+        if: runner.os != 'Windows'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ManimTex.tar.gz
+          asset_name: ManimTex-${{ matrix.os }}.tar.gz
+          asset_content_type: application/gzip
+      - name: Upload Release Asset
+        id: upload-release-asset-windows
+        uses: actions/upload-release-asset@v1
+        if: runner.os != 'Windows'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ManimTex.zip
+          asset_name: ManimTex-${{ matrix.os }}.zip
+          asset_content_type: application/zip
