@@ -84,7 +84,7 @@ jobs:
           tag_act: ${{ github.ref }}
         run: |
           ref_tag=$(python -c "print('${tag_act}'.split('/')[-1])")
-          res=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naveen521kk/manim-tex/releases/tags/${ref_tag})
+          res=$(curl -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${access_token}" https://api.github.com/repos/naveen521kk/manim-tex/releases/tags/${ref_tag})
           echo "${res}"
           upload_url=$(python -c "import json;print(json.loads('''${res}''')['upload_url'])")
           echo "::set-output name=upload_url::${upload_url}"
@@ -97,7 +97,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: ManimTex.tar.gz
-          asset_name: ManimTex-${{ matrix.os }}.tar.gz
+          asset_name: ManimTex-${{ runner.os }}.tar.gz
           asset_content_type: application/gzip
       - name: Upload Release Asset
         id: upload-release-asset-windows
@@ -108,5 +108,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: ManimTex.zip
-          asset_name: ManimTex-${{ matrix.os }}.zip
+          asset_name: ManimTex-${{ runner.os }}.zip
           asset_content_type: application/zip
