@@ -25,6 +25,7 @@ jobs:
         if: runner.os != 'Windows'
         run: |
           sh linux.sh
+          export PATH="$HOME/bin:$PATH"
           echo "::set-env name=PATH::${PATH}"
 
       - name: Pack Tex Mac
