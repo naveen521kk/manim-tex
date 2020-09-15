@@ -84,7 +84,7 @@ jobs:
           tag_act: ${{ github.ref }}
         run: |
           res=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naveen521kk/manim-tex/releases/tags/${tag_act})
-          upload_url=python -c "import json;print(json.loads('${res}')['upload_url'])"
+          upload_url=$(python -c "import json;print(json.loads('${res}')['upload_url'])")
           echo "::set-output name=upload_url::${upload_url}"
       - name: Upload Release Asset
         id: upload-release-asset-non-windows
