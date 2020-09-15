@@ -11,7 +11,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8       
       - name: Download Texlive for Windows
         if: runner.os == 'Windows'
         run: |
@@ -21,6 +25,8 @@ jobs:
         if: runner.os != 'Windows'
         run: |
           sh linux.sh
+          echo "::set-env name=PATH::${PATH}"
+
       - name: Pack Tex Mac
         if: runner.os == 'macos'
         run: |
@@ -38,6 +44,23 @@ jobs:
           Start-Process -ArgumentList "path add" -FilePath "$($PWD)\ManimTex\bin\win32\tlmgr.bat" -NoNewWindow -Wait
           curl -L https://pastebin.com/raw/QcbYFiTz -o tex.py
           manim tex.py
+      - name: Install system dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt update
+          sudo apt install -y ffmpeg
+          sudo apt-get -y tipa
+          pip install https://github.com/ManimCommunity/manim/archive/master.zip
+          curl -L https://pastebin.com/raw/QcbYFiTz -o tex.py
+          manim tex.py
+      - name: Install system dependencies (MacOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install openssl readline ffmpeg sox pyenv pyenv-virtualenv
+          pip install https://github.com/ManimCommunity/manim/archive/master.zip
+          curl -L https://pastebin.com/raw/QcbYFiTz -o tex.py
+          manim tex.py
+
       - uses: actions/upload-artifact@v2
         if: runner.os == 'Windows'
         with:
