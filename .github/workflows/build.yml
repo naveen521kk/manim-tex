@@ -83,8 +83,8 @@ jobs:
           access_token: ${{ secrets.GITHUB_TOKEN }}
           tag_act: ${{ github.ref }}
         run: |
-          echo "${tag_act}"
-          res=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naveen521kk/manim-tex/releases/tags/${tag_act})
+          ref_tag=$(python -c "'${tag_act}'.split('/')[-1]")
+          res=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naveen521kk/manim-tex/releases/tags/${ref_tag})
           echo "${res}"
           upload_url=$(python -c "import json;print(json.loads('''${res}''')['upload_url'])")
           echo "::set-output name=upload_url::${upload_url}"
