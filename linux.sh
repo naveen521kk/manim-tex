@@ -3,10 +3,10 @@
 cd ${TMPDIR:-/tmp}
 
 if [ $(uname) = 'Darwin' ]; then
-  TEXDIR=${TINYTEX_DIR:-$PWD/ManimTex}
+  TEXDIR=${TINYTEX_DIR:-${GITHUB_WORKSPACE}/ManimTex}
   alias download='curl -sL'
 else
-  TEXDIR=${TINYTEX_DIR:-$PWD/ManimTex}
+  TEXDIR=${TINYTEX_DIR:-${GITHUB_WORKSPACE}/ManimTex}
   alias download='wget -qO-'
 fi
 
