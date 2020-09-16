@@ -32,11 +32,11 @@ jobs:
       - name: Pack Tex Mac
         if: runner.os == 'macos'
         run: |
-          tar cvzf ManimTex.tar.gz $PWD/ManimTex
+          tar zcf ManimTex.tar.gz -C ~/Library ManimTex
       - name: Pack Tex Linux
         if: runner.os == 'linux'
         run: |
-          tar cvzf ManimTex.tar.gz $PWD/ManimTex
+          tar zcf ManimTex.tar.gz -C ~ ManimTex
       - name: Install Manim And Test on Windows
         if: runner.os == 'Windows'
         run: |
