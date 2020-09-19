@@ -1,4 +1,3 @@
-amscls
 amsfonts
 amsmath
 bibtex
@@ -27,6 +26,7 @@ titling
 tools
 upquote
 url
+xcolor
 xkeyval
 zapfding
 standalone
