@@ -1,6 +1,5 @@
 selected_scheme scheme-infraonly
 TEXDIR ./
-collection-basic 1
 TEXMFSYSCONFIG ./texmf-config
 TEXMFLOCAL ./texmf-local
 TEXMFSYSVAR ./texmf-var
