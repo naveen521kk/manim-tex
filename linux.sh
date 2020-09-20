@@ -1,6 +1,5 @@
 #!/bin/sh
 
-cd ${TMPDIR:-/tmp}
 
 if [ $(uname) = 'Darwin' ]; then
   TEXDIR=${TINYTEX_DIR:-~/Library/ManimTex}
