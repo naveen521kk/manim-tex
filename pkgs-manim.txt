@@ -2,6 +2,8 @@ amsfonts
 amsmath
 bibtex
 booktabs
+dvips
+tex
 ec
 etoolbox
 fancyvrb
