@@ -10,14 +10,14 @@ else
   alias download='wget -qO-'
 fi
 
-download https://yihui.org/gh/tinytex/tools/install-base.sh | sh -s - "$@"
+sh -s install-base-linux.sh
 
 rm -rf $TEXDIR
 mkdir -p $TEXDIR
 mv texlive/* $TEXDIR
 rm -r texlive
 
-$TEXDIR/bin/*/tlmgr install $(download https://github.com/naveen521kk/manim-tex/raw/master/pkgs-manim.txt | tr '\n' ' ')
+$TEXDIR/bin/*/tlmgr install $($(<pkgs-manim.txt) | tr '\n' ' ')
 
 if [ "$1" = '--admin' ]; then
   if [ "$2" != '--no-path' ]; then
