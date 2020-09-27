@@ -9,7 +9,7 @@ else
   alias download='wget -qO-'
 fi
 
-sh -s install-base-linux.sh
+sh install-base-linux.sh
 
 rm -rf $TEXDIR
 mkdir -p $TEXDIR
