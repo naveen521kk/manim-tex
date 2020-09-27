@@ -27,6 +27,7 @@ jobs:
         run: |
           sh linux.sh
           export PATH="$HOME/bin:$PATH"
+          ls $HOME/bin
           echo "::set-env name=PATH::${PATH}"
 
       - name: Pack Tex Mac
