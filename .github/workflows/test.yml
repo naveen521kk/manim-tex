@@ -28,6 +28,7 @@ jobs:
         run: |
           sh linux.sh
           export PATH="$HOME/bin:$PATH"
+          ls $HOME/bin
           echo "::set-env name=PATH::${PATH}"
 
       - name: Pack Tex Mac
@@ -45,8 +46,10 @@ jobs:
           choco install --no-progress manim
           $env:Path += ";" + "$($PWD)\ManimTex\bin\win32"
           Start-Process -ArgumentList "path add" -FilePath "$($PWD)\ManimTex\bin\win32\tlmgr.bat" -NoNewWindow -Wait
+          python -m pip install https://github.com/ManimCommunity/manim/archive/master.zip
           curl -L https://pastebin.com/raw/QcbYFiTz -o tex.py
-          manim tex.py
+          python -m manim tex.py
+
       - name: Install Manim and Test Linux
         if: runner.os == 'Linux'
         run: |
